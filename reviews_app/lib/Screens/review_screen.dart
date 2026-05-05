@@ -20,7 +20,7 @@ class ReviewScreen extends StatelessWidget {
 
       body: Column(
         children: [
-          /// star selector
+          // star selector
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(5, (index) {
@@ -41,7 +41,7 @@ class ReviewScreen extends StatelessWidget {
             }),
           ),
 
-          /// comment
+          // comment
           Padding(
             padding: const EdgeInsets.all(10),
             child: TextField(
@@ -53,7 +53,7 @@ class ReviewScreen extends StatelessWidget {
             ),
           ),
 
-          /// submit
+          // submit
           ElevatedButton(
             onPressed: () {
               if (controller.text.isEmpty || provider.selectedRating == 0) {
@@ -74,7 +74,7 @@ class ReviewScreen extends StatelessWidget {
             child: const Text("Submit Review"),
           ),
 
-          /// sort
+          // sort
           DropdownButton(
             value: provider.sortBy,
             items: const [
@@ -88,12 +88,12 @@ class ReviewScreen extends StatelessWidget {
             },
           ),
 
-          /// filter (all + 1-5)
+          // filter (all + 1-5)
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                /// all
+                // all
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: ChoiceChip(
@@ -105,14 +105,14 @@ class ReviewScreen extends StatelessWidget {
                   ),
                 ),
 
-                /// stars
+                // stars
                 ...List.generate(5, (index) {
                   int star = index + 1;
 
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: ChoiceChip(
-                      label: Text("$star ⭐"),
+                      label: Text("$star "),
                       selected: provider.filterRating == star,
                       onSelected: (_) {
                         provider.setFilter(star);
@@ -126,7 +126,7 @@ class ReviewScreen extends StatelessWidget {
 
           const SizedBox(height: 10),
 
-          /// reviews
+          // reviews
           Expanded(
             child: StreamBuilder<List<ReviewModel>>(
               stream: provider.fetchReviews(
@@ -140,10 +140,10 @@ class ReviewScreen extends StatelessWidget {
 
                 final allReviews = snapshot.data!;
 
-                /// avg from all
+                // avg from all
                 double avg = provider.calculateAverage(allReviews);
 
-                /// filtered list
+                // filtered list
                 List<ReviewModel> filteredReviews = allReviews;
 
                 if (provider.filterRating > 0) {
@@ -154,7 +154,7 @@ class ReviewScreen extends StatelessWidget {
                       .toList();
                 }
 
-                /// sort
+                // sort
                 if (provider.sortBy == 'helpful') {
                   filteredReviews.sort(
                     (a, b) => b.helpfulvotes.compareTo(a.helpfulvotes),
@@ -176,11 +176,11 @@ class ReviewScreen extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    /// average
+                  // average
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
-                        "Average Rating: ${avg.toStringAsFixed(1)} ⭐",
+                        "Average Rating: ${avg.toStringAsFixed(1)} ",
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -188,7 +188,7 @@ class ReviewScreen extends StatelessWidget {
                       ),
                     ),
 
-                    /// count
+                    // count
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
@@ -202,7 +202,7 @@ class ReviewScreen extends StatelessWidget {
 
                     const Divider(),
 
-                    /// list
+                    // list
                     Expanded(
                       child: ListView.builder(
                         itemCount: filteredReviews.length,
@@ -219,7 +219,7 @@ class ReviewScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  /// stars
+                                  // stars
                                   Row(
                                     children: List.generate(
                                       5,
@@ -235,12 +235,12 @@ class ReviewScreen extends StatelessWidget {
 
                                   const SizedBox(height: 5),
 
-                                  /// comment
+                                  // comment
                                   Text(r.comment),
 
                                   const SizedBox(height: 10),
 
-                                  /// helpful button
+                                  // helpful button
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -258,7 +258,7 @@ class ReviewScreen extends StatelessWidget {
                                             reviewId: r.id,
                                           );
 
-                                          /// optional feedback
+                                          // optional feedback
                                           ScaffoldMessenger.of(
                                             context,
                                           ).showSnackBar(
